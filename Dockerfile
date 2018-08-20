@@ -1,8 +1,8 @@
 FROM arm32v7/python:3
 ADD cookie.py /
 
-ADD web /
-ADD fortune-cookies-galore /
+ADD web /web
+ADD fortune-cookies-galore /fortune-cookies-galore
 
 RUN pip install markovify
 
