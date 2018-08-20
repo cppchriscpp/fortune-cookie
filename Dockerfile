@@ -4,7 +4,7 @@ ADD cookie.py /
 ADD web /web
 ADD fortune-cookies-galore /fortune-cookies-galore
 
-RUN pip install markovify
+RUN pip install markovify && pip install nltk && ln -s /data/cookie.js /web/assets/js/cookie.js
 
 EXPOSE 3001
 
