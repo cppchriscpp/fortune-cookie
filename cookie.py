@@ -20,7 +20,10 @@ class POSifiedText(markovify.Text):
 
 with open("./fortune-cookies-galore/fortunes.txt") as f:
     text = f.read()
+with open("./taylor-swift-lyrics/all_tswift_lyrics.txt") as f:
+    tswext = f.read()
 tooxt = text.split("\n")
+tswooxt = tswext.split("\n")
 
 def excluded(string):
     if string.startswith("Q:"):
@@ -31,20 +34,29 @@ def excluded(string):
         return False
     return True
 
+def exwifted(string):
+    if "[" in string:
+        return False
+    return True
+
 # There's some non-fortunes in our fortune source.. let's strip those
 tooxt[:] = [x for x in tooxt if excluded(x)]
+tswooxt[:] = [x for x in tswooxt if exwifted(x)]
 
 text_model = POSifiedText("\n".join(tooxt))
+tswext_model = POSifiedText("\n".join(tswooxt))
+
+moodel = markovify.combine([text_model, tswext_model])
 
 print("Long:")
 for i in range(5):
-    print(text_model.make_sentence(tries=25))
+    print(moodel.make_sentence(tries=25))
 
 print("")
 
 print("tweeter:")
 for i in range(5):
-    print(text_model.make_short_sentence(140, tresi=25))
+    print(moodel.make_short_sentence(140, tresi=25))
 
 if not os.path.exists('./temp'):
     os.mkdir('./temp')
@@ -52,7 +64,7 @@ if not os.path.exists('./temp'):
 with open("./temp/cookie.js", "w+") as file:
     file.write("window.fortuneCookies=[\n")
     for i in range(100):
-        file.write("\"" + text_model.make_sentence(tries=25) + "\",\n")
+        file.write("\"" + moodel.make_sentence(tries=25) + "\",\n")
     file.write("];")
 
 copyfile("./temp/cookie.js", "/data/cookie.js")

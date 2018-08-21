@@ -1,3 +1,6 @@
 [submodule "fortune-cookies-galore"]
 	path = fortune-cookies-galore
 	url = git@github.com:ianli/fortune-cookies-galore.git
+[submodule "taylor-swift-lyrics"]
+	path = taylor-swift-lyrics
+	url = git@github.com:irenetrampoline/taylor-swift-lyrics.git
