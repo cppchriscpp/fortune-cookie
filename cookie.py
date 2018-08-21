@@ -55,4 +55,4 @@ with open("./temp/cookie.js", "w+") as file:
         file.write("\"" + text_model.make_sentence(tries=25) + "\",\n")
     file.write("];")
 
-copyfile("./temp/cookie.js", "./web/assets/js/cookie.js")
+copyfile("./temp/cookie.js", "/data/cookie.js")
