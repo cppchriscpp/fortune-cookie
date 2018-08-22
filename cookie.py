@@ -2,6 +2,7 @@ import markovify
 import re
 import nltk
 import os
+import urllib.request
 
 from shutil import copyfile
 
@@ -20,8 +21,11 @@ class POSifiedText(markovify.Text):
 
 with open("./fortune-cookies-galore/fortunes.txt") as f:
     text = f.read()
-with open("./taylor-swift-lyrics/all_tswift_lyrics.txt") as f:
-    tswext = f.read()
+
+response = urllib.request.urlopen("https://www.usconstitution.net/const.txt")
+data = response.read()
+tswext = data.decode('utf-8')
+
 tooxt = text.split("\n")
 tswooxt = tswext.split("\n")
 
