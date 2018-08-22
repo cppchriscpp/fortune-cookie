@@ -22,9 +22,15 @@ class POSifiedText(markovify.Text):
 with open("./fortune-cookies-galore/fortunes.txt") as f:
     text = f.read()
 
-response = urllib.request.urlopen("https://www.usconstitution.net/const.txt")
-data = response.read()
-tswext = data.decode('utf-8')
+if not os.path.exists('/data/const.txt'):
+    urllib.request.urlretrieve("https://www.usconstitution.net/const.txt", "/data/const.txt")
+
+#    response = urllib.request.urlopen("https://www.usconstitution.net/const.txt")
+#    data = response.read()
+#    dorka = data.decode('utf-8')
+        
+with open('/data/const.txt') as f:
+    tswext = f.read()
 
 tooxt = text.split("\n")
 tswooxt = tswext.split("\n")
