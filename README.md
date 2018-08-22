@@ -5,7 +5,8 @@ This probably isn't the droid you're looking for...
 This is a dumb little python app I wrote that grabs a bunch of fortune cookies from github, and merges them with
 other things. (Right now, the US Constitution)
 
-It uses python for all pieces.
+It's my first real foray into python, so the code is probably pretty awful. I tried to at least comment it, so
+my dumb decisions are obvious!
 
 ## Setup
 
@@ -62,7 +63,10 @@ It tries not to make assumptions, but if you intend to run it in an environment 
 may want to set the `DATA_DIR` environment variable to a directory you link with a persistent volume, so
 that the pods share the data. It doesn't use much space; 25Mb should cover it.
 
-It also is compatible with being deployed to ARM devices thanks to the images provided by `Resin.io`
+If you opt to do this, symlink the `web/assets/data` directory to your volume. _Also please note anything
+that you put into the data directory will be publicly acessible!_
+
+It also is compatible with being deployed to ARM devices thanks to the images provided by Resin.io.
 
 ## Software/etc used
 
