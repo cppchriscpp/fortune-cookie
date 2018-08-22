@@ -66,11 +66,10 @@ It also is compatible with being deployed to ARM devices thanks to the images pr
 
 ## Software/etc used
 
-FIXME: Need links
-- [Markovify]()
-- [nltk]()
-- [Directive layout by HTML5 UP]()
-- [Jquery]()
+- [Markovify](https://github.com/jsvine/markovify)
+- [nltk](https://www.nltk.org/)
+- [Directive layout by HTML5 UP](https://html5up.net/directive)
+- [Jquery](https://jquery.com/)
 
 ## License 
 
