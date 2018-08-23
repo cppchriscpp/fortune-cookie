@@ -1,5 +1,6 @@
 FROM resin/armv7hf-python:3
 ADD cookie.py /
+ADD setup.py /
 
 ADD web /web
 ADD fortune-cookies-galore /fortune-cookies-galore
