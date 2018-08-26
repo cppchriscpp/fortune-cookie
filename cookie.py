@@ -44,8 +44,8 @@ with open(datadir+'/const.txt') as f:
     tswext = f.read()
 
 # Break up the text to make it more workable
-tooxt = text.split("\n")
-tswooxt = tswext.split("\n")
+cookie_text_split = text.split("\n")
+const_text_split = tswext.split("\n")
 
 # Some cleanup to remove things in the fortune cookie file that aren't really fortunes. 
 # (There are some odd facts and quotes in here. This is a bit barbaric, but this is a fun project anyway! No need for perfection...)
@@ -65,21 +65,21 @@ def exwifted(string):
     return True
 
 # Apply the cleanups from above
-tooxt[:] = [x for x in tooxt if excluded(x)]
-tswooxt[:] = [x for x in tswooxt if exwifted(x)]
+cookie_text_split[:] = [x for x in cookie_text_split if excluded(x)]
+const_text_split[:] = [x for x in const_text_split if exwifted(x)]
 
 # Merge the text back into one big blob like markovify expects. (There's probably a better way to do this, but again, fun project. Efficiency's not that important...
-text_model = POSifiedText("\n".join(tooxt))
-tswext_model = POSifiedText("\n".join(tswooxt))
+cookie_text_model = POSifiedText("\n".join(cookie_text_split))
+const_text_model = POSifiedText("\n".join(const_text_split))
 
 # Combine them into a terrifying structure
-moodel = markovify.combine([text_model, tswext_model])
+const_and_cookie_model = markovify.combine([cookie_text_model, const_text_model])
 
 # Print a couple lines to the terminal to show that everything's working...
 
 print("Examples:")
 for i in range(5):
-    print(moodel.make_short_sentence(240, tries=25))
+    print(const_and_cookie_model.make_short_sentence(240, tries=25))
 
 # Now, open a temporary file and write some javascript surrounding our story.
 with open(datadir+"/cookie.js.new", "w+") as file:
@@ -87,11 +87,26 @@ with open(datadir+"/cookie.js.new", "w+") as file:
     # NOTE: I don't escape anything here... with bad seed text it'd be quite possible to inject weird js, etc.
     file.write("window.fortuneCookies=[\n")
 
+    print("Running cookie")
     # Write 100 lines of junk into the js file. Note that leaving the closing comma is ok, as javascript doesn't care.
     for i in range(100):
-        file.write("\"" + moodel.make_short_sentence(240, tries=25) + "\",\n")
+        file.write("\"" + cookie_text_model.make_short_sentence(240, tries=25) + "\",\n")
     # Close it up!
     file.write("];")
+
+    print("Running const + cookie")
+    file.write("window.constCookies=[\n")
+    for i in range(100):
+        file.write("\"" + const_and_cookie_model.make_short_sentence(240, tries=25) + "\",\n")
+    file.write("];")
+
+    print("Running const only")
+    file.write("window.constLines=[\n")
+    for i in range(100):
+        file.write("\"" + const_text_model.make_short_sentence(240, tries=25) + "\",\n")
+    file.write("];")
+
+
 
 # Finally, copy our temp file over the old one, so clients can start seeing it.
 copyfile(datadir+"/cookie.js.new", datadir+"/cookie.js")
