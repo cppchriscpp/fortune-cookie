@@ -1,6 +1,8 @@
 $(document).ready(function() {
-    var uselessNumber = 52;
-    regularFortune();
+    var uselessNumber = (new Date()).getTime();
+    $.getScript('assets/data/cookie.js?junk='+uselessNumber, function() {
+        regularFortune();
+    });
 
     setInterval(function() {
         // Reload the cookie js file, so any new requests get new ones
