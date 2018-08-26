@@ -89,20 +89,20 @@ with open(datadir+"/cookie.js.new", "w+") as file:
 
     print("Running cookie")
     # Write 100 lines of junk into the js file. Note that leaving the closing comma is ok, as javascript doesn't care.
-    for i in range(100):
+    for i in range(250):
         file.write("\"" + cookie_text_model.make_short_sentence(240, tries=25) + "\",\n")
     # Close it up!
     file.write("];")
 
     print("Running const + cookie")
     file.write("window.constCookies=[\n")
-    for i in range(100):
+    for i in range(250):
         file.write("\"" + const_and_cookie_model.make_short_sentence(240, tries=25) + "\",\n")
     file.write("];")
 
     print("Running const only")
     file.write("window.constLines=[\n")
-    for i in range(100):
+    for i in range(250):
         file.write("\"" + const_text_model.make_short_sentence(240, tries=25) + "\",\n")
     file.write("];")
 

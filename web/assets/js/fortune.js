@@ -1,9 +1,11 @@
 $(document).ready(function() {
+    var uselessNumber = 52;
     regularFortune();
 
     setInterval(function() {
         // Reload the cookie js file, so any new requests get new ones
-        $.getScript('assets/data/cookie.js');
+        // The ? thing is to make sure it actually loads a new copy to replace the old one. (Caching, etc)
+        $.getScript('assets/data/cookie.js?junk='+uselessNumber);
     }, 300000);
 
     $('.newFortune').click(regularFortune);
