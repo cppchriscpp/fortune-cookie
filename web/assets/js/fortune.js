@@ -13,6 +13,9 @@ $(document).ready(function() {
     $('.newFortune').click(regularFortune);
     $('.newConstitution').click(constLine);
     $('.newPolitic').click(constFortune);
+    $('.tweet').click(tweetLine);
+    $('.tweetCookie').click(tweetCookieLine)
+    $('.everythingCookie').click(everythingLine);
     $('.bed').click(inBed);
 });
 
@@ -26,6 +29,18 @@ function constFortune() {
 
 function constLine() {
     $('.fortune').html(window.constLines[Math.floor(Math.random()*window.constLines.length)]);
+}
+
+function tweetLine() {
+    $('.fortune').html(window.tweetLines[Math.floor(Math.random()*window.tweetLines.length)]);
+}
+
+function tweetCookieLine() {
+    $('.fortune').html(window.tweetCookie[Math.floor(Math.random()*window.tweetCookie.length)]);
+}
+
+function everythingLine() {
+    $('.fortune').html(window.everythingCookie[Math.floor(Math.random()*window.everythingCookie.length)]);
 }
 
 function inBed() {

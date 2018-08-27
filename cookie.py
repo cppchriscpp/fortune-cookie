@@ -36,6 +36,10 @@ if not os.path.exists(datadir+"/cookie.txt"):
 if not os.path.exists(datadir+'/const.txt'):
     urllib.request.urlretrieve("https://www.usconstitution.net/const.txt", datadir+"/const.txt")
 
+if not os.path.exists(datadir+'/tweeter.txt'):
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/ElDeveloper/tweets/master/tweets_text.txt", datadir+"/tweeter.txt")
+
+
 # Read both files into variables
 with open(datadir+"/cookie.txt") as f:
     text = f.read()
@@ -43,9 +47,13 @@ with open(datadir+"/cookie.txt") as f:
 with open(datadir+'/const.txt') as f:
     tswext = f.read()
 
+with open(datadir+"/tweeter.txt") as f:
+    tweetext = f.read()
+
 # Break up the text to make it more workable
 cookie_text_split = text.split("\n")
 const_text_split = tswext.split("\n")
+tweet_text_split = tweetext.split("\n")
 
 # Some cleanup to remove things in the fortune cookie file that aren't really fortunes. 
 # (There are some odd facts and quotes in here. This is a bit barbaric, but this is a fun project anyway! No need for perfection...)
@@ -71,9 +79,12 @@ const_text_split[:] = [x for x in const_text_split if exwifted(x)]
 # Merge the text back into one big blob like markovify expects. (There's probably a better way to do this, but again, fun project. Efficiency's not that important...
 cookie_text_model = POSifiedText("\n".join(cookie_text_split))
 const_text_model = POSifiedText("\n".join(const_text_split))
+tweet_text_model = POSifiedText("\n".join(tweet_text_split))
 
 # Combine them into a terrifying structure
 const_and_cookie_model = markovify.combine([cookie_text_model, const_text_model])
+tweet_and_cookie_model = markovify.combine([cookie_text_model, tweet_text_model], [4, 1])
+everything_model = markovify.combine([cookie_text_model, const_text_model, tweet_text_model], [4, 1, 1])
 
 # Print a couple lines to the terminal to show that everything's working...
 
@@ -105,6 +116,28 @@ with open(datadir+"/cookie.js.new", "w+") as file:
     for i in range(250):
         file.write("\"" + const_text_model.make_short_sentence(240, tries=25) + "\",\n")
     file.write("];")
+
+    print("Running tweet only")
+    file.write("window.tweetLines=[\n")
+    for i in range(250):
+        file.write("\"" + tweet_text_model.make_short_sentence(240, tries=25) + "\",\n")
+    file.write("];")
+
+
+    print("Running tweet cookie")
+    file.write("window.tweetCookie=[\n")
+    for i in range(250):
+        file.write("\"" + tweet_and_cookie_model.make_short_sentence(240, tries=25) + "\",\n")
+    file.write("];")
+
+
+    print("Running everything")
+    file.write("window.everythingCookie=[\n")
+    for i in range(250):
+        file.write("\"" + everything_model.make_short_sentence(240, tries=25) + "\",\n")
+    file.write("];")
+
+
 
 
 
