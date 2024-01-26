@@ -51,11 +51,6 @@ This hosts everything in the `/web` directory in a server on port 3001. If you n
 Any time you re-run `cookie.py` it will generate a new set of 100 fortunes for the site to show.
 You may want to attach this to a cron, or do something similar.
 
-## See It live
-
-I have this [temporarily hosted](http://fortune.kube.cpprograms.net) somewhere. This link may or
-may not be active. It's not a high priority of mine. If it's down, feel free to ping me though!
-
 ## Docker
 
 If you want to run this thing using docker, there is a `Dockerfile` you can use in the root directory.

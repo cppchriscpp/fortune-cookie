@@ -4,7 +4,7 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 docker build -t fortune-cookie .
-docker tag fortune-cookie cppchriscpp/fortune-cookie:latest
-docker tag fortune-cookie cppchriscpp/fortune-cookie:$1
-docker push cppchriscpp/fortune-cookie:$1
-docker push cppchriscpp/fortune-cookie:latest
+docker tag fortune-cookie igwgames/fortune-cookie:latest
+docker tag fortune-cookie igwgames/fortune-cookie:$1
+docker push igwgames/fortune-cookie:$1
+docker push igwgames/fortune-cookie:latest
